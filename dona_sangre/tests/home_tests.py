@@ -13,4 +13,6 @@ class HomeTestCase(TestCase):
 		url = reverse('home')
 		response = self.client.get(url)
 		self.assertEquals(response.status_code, 200)
-		self.assertTemplateUsed(response, 'dona_sangre/base.html')
+		self.assertTemplateUsed(response, 'base.html')
+		self.assertTemplateUsed(response, 'sangre/home.html')
+
