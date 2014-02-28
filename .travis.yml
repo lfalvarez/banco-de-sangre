@@ -1,0 +1,13 @@
+language: python
+python:
+  - "2.7"
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+env:
+  - DJANGO_VERSION=1.6.1
+script:
+  - coverage run --source=dona_sangre manage.py test dona_sangre
+  - coverage report -m
+after_script:
+  - coveralls --verbose

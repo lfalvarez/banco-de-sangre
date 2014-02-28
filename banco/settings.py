@@ -1,5 +1,5 @@
 """
-Django settings for dona_sangre project.
+Django settings for banco project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4$tv28^95o=d)0oyx6^ftr(&2c=g(+odn#aq9r@y5-^cc4h17s'
+SECRET_KEY = 'bwv!zy2)lm8seg3l$=%sf4l38y&we)ap)n3eix*8smq!fry!dt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,9 +47,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'dona_sangre.urls'
+ROOT_URLCONF = 'banco.urls'
 
-WSGI_APPLICATION = 'dona_sangre.wsgi.application'
+WSGI_APPLICATION = 'banco.wsgi.application'
 
 
 # Database
