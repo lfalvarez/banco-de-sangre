@@ -18,3 +18,5 @@ deploy:
   app: dona-sangre
   on:
     repo: lfalvarez/banco-de-sangre
+  run:
+    - "python manage.py syncdb --noinput"
