@@ -2,20 +2,23 @@ language: python
 python:
 - '2.7'
 install:
-- pip install -r requirements.txt
-- pip install coveralls
+  - pip install -r requirements.txt
+  - pip install -r requirements_testing.txt
+  - pip install coveralls
 env:
-- DJANGO_VERSION=1.6.1
+  - DJANGO_VERSION=1.6.1
 script:
-- coverage run --source=dona_sangre manage.py test
-- coverage report -m
+  - coverage run --source=dona_sangre manage.py test
+  - coverage report -m
 after_script:
-- coveralls --verbose
+  - coveralls --verbose
 deploy:
   provider: heroku
   api_key:
     secure: C8SKQbhN1NUUj9dFBziOPv5wGo3rIzxUv2ibS8G69YYmGw5QoAKBN73u7i8y+vmwfwoR729iDtyVueY8wlIk2Ro3nyH3YT8AXb556f7ik26GtOV7YIJ9huD68m+HxdSt8esKE6goQ3/hJdRG2RZIiad6Gcfw1lkcB8pbY2tQGYg=
   app: dona-sangre
+  before_deploy:
+    - pip install -r requirements_production.txt
   on:
     repo: lfalvarez/banco-de-sangre
   run:
