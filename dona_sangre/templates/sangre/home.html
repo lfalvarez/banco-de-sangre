@@ -1,7 +1,23 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_head %}
+<link href="{% static 'css/facebook.css' %}" type="text/css" rel="stylesheet" media="all" />
+{% include 'django_facebook/_facebook_js.html' %}
+{% endblock extra_head %}
+
 {% block content %}
 <div class="starter-template">
 	<h1>Donar Sangre</h1>
 	<p class="lead">Aplicación para fomentar la donación de sangre en Chile</p>
+
+	<form action="{% url 'facebook_connect' %}?facebook_login=1" method="post">
+	    <input type="hidden" value="{{ request.path }}" name="next" />
+	    <input type="hidden" value="{{ request.path }}" name="register_next" />
+	    <input type="hidden" value="{{ request.path }}" name="error_next" />
+	    {% csrf_token %}
+	    <input onclick="F.connect(this.parentNode); return false;" type="image" src="{{ STATIC_URL }}django_facebook/images/facebook_login.png" />
+	</form>
 </div>
 {% endblock content %}

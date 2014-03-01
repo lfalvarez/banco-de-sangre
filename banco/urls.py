@@ -13,4 +13,5 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     
     url(r'^', include('dona_sangre.urls')),
+    (r'^facebook/', include('django_facebook.urls')),
 )
