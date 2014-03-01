@@ -10,7 +10,6 @@ env:
 script:
   - coverage run --source=dona_sangre manage.py test dona_sangre
   - coverage report -m
-after_script:
   - coveralls --verbose
 deploy:
   provider: heroku
