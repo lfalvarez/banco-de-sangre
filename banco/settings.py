@@ -110,6 +110,7 @@ STATIC_URL = '/static/'
 
 FACEBOOK_APP_ID = ''
 FACEBOOK_APP_SECRET = ''
+AUTH_PROFILE_MODULE = 'dona_sangre.FacebookDonor'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
@@ -131,6 +132,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+SOUTH_TESTS_MIGRATE = False
 
 try:
     from local_settings import *
