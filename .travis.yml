@@ -7,6 +7,8 @@ install:
   - pip install coveralls
 env:
   - DJANGO_VERSION=1.6.1
+  - FACEBOOK_APP_ID="FACEBOOK_APP_ID"
+  - FACEBOOK_APP_SECRET="FACEBOOK_APP_SECRET" 
 script:
   - coverage run --source=dona_sangre manage.py test dona_sangre
   - coverage report -m

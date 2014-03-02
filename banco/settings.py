@@ -112,8 +112,8 @@ LOGIN_URL = '/'
 
 ## FACEBOOK STUFF
 
-FACEBOOK_APP_ID = ''
-FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID']
+FACEBOOK_APP_SECRET = os.environ['FACEBOOK_APP_SECRET']
 AUTH_USER_MODEL = 'dona_sangre.FacebookDonor'
 
 # Parse database configuration from $DATABASE_URL
