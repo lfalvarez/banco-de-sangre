@@ -106,6 +106,10 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 STATIC_URL = '/static/'
 
+#LOGIN_STUFF
+
+LOGIN_URL = '/'
+
 ## FACEBOOK STUFF
 
 FACEBOOK_APP_ID = ''
