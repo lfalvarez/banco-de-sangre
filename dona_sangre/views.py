@@ -9,8 +9,9 @@ from django.core.urlresolvers import reverse
 #home_url = reverse('home')
 
 class UserAccountView(TemplateView):
+    template_name = "sangre/your-profile.html"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-    	home_url = reverse('home')
+        home_url = reverse('home')
         return super(UserAccountView, self).dispatch(*args, **kwargs)
