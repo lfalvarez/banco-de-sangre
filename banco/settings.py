@@ -110,7 +110,7 @@ STATIC_URL = '/static/'
 
 FACEBOOK_APP_ID = ''
 FACEBOOK_APP_SECRET = ''
-AUTH_PROFILE_MODULE = 'dona_sangre.FacebookDonor'
+AUTH_USER_MODEL = 'dona_sangre.FacebookDonor'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
