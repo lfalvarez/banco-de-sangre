@@ -11,8 +11,7 @@
 <div class="starter-template">
 	<h1>Donar Sangre</h1>
 	<p class="lead">Aplicación para fomentar la donación de sangre en Chile</p>
-
-	{% if not user %}
+	{% if not user.is_authenticated %}
 		<form action="{% url 'facebook_connect' %}?facebook_login=1" method="post">
 		    <input type="hidden" value="{% url 'account' %}" name="next" />
 		    <input type="hidden" value="{% url 'account' %}" name="register_next" />
