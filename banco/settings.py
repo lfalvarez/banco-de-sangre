@@ -115,6 +115,7 @@ LOGIN_URL = '/'
 FACEBOOK_APP_ID = os.environ['FACEBOOK_APP_ID']
 FACEBOOK_APP_SECRET = os.environ['FACEBOOK_APP_SECRET']
 AUTH_USER_MODEL = 'dona_sangre.FacebookDonor'
+PROFILE_IMAGE_PATH = 'dona_sangre/static'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
