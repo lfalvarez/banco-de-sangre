@@ -26,12 +26,14 @@ class UserSectionViewsTestCase(TestCase):
         self.assertRedirects(response, home_url)
 
     def test_I_can_loggin_with_a_facebook_user(self):
+        """Me puedo logear con un usuario de facebook"""
         c = Client()
         
         login = c.login(facebook_id=self.user.facebook_id)
         self.assertTrue(login)
 
     def test_the_url_exists_and_is_reachable_when_logged(self):
+        """La url de mi cuenta existe y la puedo acceder cuando estoy loggeado"""
         c = Client()
         c.login(facebook_id=self.user.facebook_id)
         url = reverse('account')
