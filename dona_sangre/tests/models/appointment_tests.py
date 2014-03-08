@@ -15,7 +15,8 @@ class AppointmentTestCase(TestCase):
     def test_create_an_appointment(self):
         '''Puedes crear una cita para ir a donar sangre'''
         
-        apointment = Appointment.objects.create(donor=self.user, date=tomorrow)
+        apointment = Appointment.objects.create(donor=self.user, date=tomorrow, \
+                        notes="Me regalarán chocolate??")
 
 
         self.assertTrue(apointment)
@@ -30,3 +31,18 @@ class AppointmentTestCase(TestCase):
         self.assertEquals(apointment.date.month, tomorrow.month)
         self.assertEquals(apointment.date.year, tomorrow.year)
         self.assertEquals(apointment.date.hour, tomorrow.hour)
+
+# from dona_sangre.forms import AppointmentModelForm
+
+class AppointmentModelFormTestCase(TestCase):
+    def setUp(self):
+        self.user = FacebookDonor.objects.create(
+            facebook_id=1234,
+            facebook_name="Feli"
+            )
+
+
+    def atest_create_an_appointment_using_form(self):
+        """Puedo crear una cita para ir a donar utilizando un formulario"""
+        form = AppointmentModelForm(user=self.user)
+        new_appointment = form.save()

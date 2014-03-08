@@ -14,5 +14,6 @@ class FacebookDonor(AbstractUser, FacebookModel):
 class Appointment(models.Model):
 	donor = models.ForeignKey(FacebookDonor)
 	date = models.DateTimeField(default=(datetime.datetime.now() + datetime.timedelta(days=1)))
+	notes = models.TextField()
 
 
