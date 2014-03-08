@@ -7,7 +7,8 @@ class AppointmentModelForm(ModelForm):
         fields = ['date', 'notes']
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('donor')
+        if 'donor' in kwargs:
+            self.user = kwargs.pop('donor')
         super(AppointmentModelForm, self).__init__(*args, **kwargs)
 
     def save(self):

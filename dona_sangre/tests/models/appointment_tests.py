@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.test import TestCase
 from dona_sangre.models import Appointment, FacebookDonor
+from django.test.client import Client
+from django.core.urlresolvers import reverse
 import datetime
 
 tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
@@ -51,7 +53,7 @@ class AppointmentModelFormTestCase(TestCase):
         }
         form = AppointmentModelForm(data, donor=self.user)
         new_appointment = form.save()
-        
+
         self.assertTrue(new_appointment)
         self.assertEquals(new_appointment.donor, self.user)
         self.assertEquals(new_appointment.date.day, tomorrow.day)
@@ -59,5 +61,22 @@ class AppointmentModelFormTestCase(TestCase):
         self.assertEquals(new_appointment.date.year, tomorrow.year)
         self.assertEquals(new_appointment.date.hour, tomorrow.hour)
         self.assertEquals(new_appointment.notes, u"Hola me llamo juanito y quiero puro donar sangre")
+
+    def test_instanciate_an_appointment_without_donor(self):
+        """Puedo instanciar un formulario sin donante"""
+        form = AppointmentModelForm()
+        self.assertTrue(form)
+        self.assertFalse(hasattr(form, 'donor'))
+
+    def test_account_page_contains_the_form(self):
+        """La pagina de mi cuenta ya tiene el formulario"""
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+        url = reverse('account')
+        response = c.get(url)
+
+        self.assertIn('new_appointment_form', response.context)
+        self.assertIsInstance(response.context['new_appointment_form'], AppointmentModelForm)
+        self.assertFalse(hasattr(response.context['new_appointment_form'], 'donor'))
 
 
