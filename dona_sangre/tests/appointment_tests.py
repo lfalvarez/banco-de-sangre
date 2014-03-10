@@ -4,8 +4,9 @@ from dona_sangre.models import Appointment, FacebookDonor
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 import datetime
+from django.utils.timezone import now
 
-tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
+tomorrow = now() + datetime.timedelta(days=1)
 
 class AppointmentTestCase(TestCase):
     def setUp(self):
