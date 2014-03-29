@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DetailView
 from django.core.urlresolvers import reverse
 from dona_sangre.forms import AppointmentModelForm
+from dona_sangre.models import Appointment
 
 # Create your views here.
 
@@ -33,3 +34,7 @@ class AppointmentCreateView(CreateView):
 
 	def get_success_url(self):
 		return reverse('account')
+
+class AppointmentDetailView(DetailView):
+	model = Appointment
+	template_name = 'sangre/appointment.html'

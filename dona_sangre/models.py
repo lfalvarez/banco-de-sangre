@@ -7,6 +7,7 @@ from django_facebook.utils import get_user_model, get_profile_model
 from django.db.models.signals import pre_save
 from django.contrib.auth.models import AbstractUser
 import datetime
+from django.core.urlresolvers import reverse
 
 class FacebookDonor(AbstractUser, FacebookModel):
 	pass
@@ -16,4 +17,6 @@ class Appointment(models.Model):
 	date = models.DateTimeField(default=(datetime.datetime.now() + datetime.timedelta(days=1)))
 	notes = models.TextField(default=u"")
 
+	def get_absolute_url(self):
+		return reverse('appointment_detail', kwargs={'pk':self.pk})
 

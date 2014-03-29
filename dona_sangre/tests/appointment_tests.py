@@ -37,6 +37,21 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(apointment.date.hour, tomorrow.hour)
         self.assertEquals(apointment.notes, u"")
 
+    def test_get_absolute_url(self):
+        """Una cita tiene su página aparte"""
+        apointment = Appointment.objects.create(donor=self.user)
+        url = apointment.get_absolute_url()
+        self.assertTrue(url)
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+        response = c.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertIn('appointment', response.context)
+        self.assertEquals(response.context['appointment'], apointment)
+        self.assertTemplateUsed(response, 'sangre/appointment.html')
+        self.assertTemplateUsed(response, 'base.html')
+
+
 from dona_sangre.forms import AppointmentModelForm
 
 class AppointmentModelFormTestCase(AppointmentTestCaseMixin, TestCase):
