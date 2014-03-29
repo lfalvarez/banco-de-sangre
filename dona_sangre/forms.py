@@ -1,4 +1,4 @@
-from django.forms import ModelForm, Textarea, DateTimeInput
+from django.forms import ModelForm, Textarea, DateInput
 from dona_sangre.models import Appointment
 
 class AppointmentModelForm(ModelForm):
@@ -6,7 +6,7 @@ class AppointmentModelForm(ModelForm):
         model = Appointment
         fields = ['date', 'notes']
         widgets = {
-            'date': DateTimeInput(attrs={'class': 'form-control'}),
+            'date': DateInput(attrs={'class': 'form-control'}),
             'notes': Textarea(attrs={'class': 'form-control'}),
         }
 

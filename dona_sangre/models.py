@@ -16,7 +16,7 @@ class FacebookDonor(AbstractUser, FacebookModel):
 
 class Appointment(models.Model):
 	donor = models.ForeignKey(FacebookDonor, related_name='appointments')
-	date = models.DateTimeField(default=(now() + datetime.timedelta(days=1)))
+	date = models.DateField(default=(now() + datetime.timedelta(days=1)))
 	notes = models.TextField(default=u"")
 
 	def get_absolute_url(self):

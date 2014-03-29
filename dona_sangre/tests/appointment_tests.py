@@ -37,7 +37,6 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(apointment.date.day, tomorrow.day)
         self.assertEquals(apointment.date.month, tomorrow.month)
         self.assertEquals(apointment.date.year, tomorrow.year)
-        self.assertEquals(apointment.date.hour, tomorrow.hour)
         self.assertEquals(apointment.notes, u"")
 
     def test_appointment_unicode(self):
@@ -108,7 +107,6 @@ class AppointmentModelFormTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(new_appointment.date.day, tomorrow.day)
         self.assertEquals(new_appointment.date.month, tomorrow.month)
         self.assertEquals(new_appointment.date.year, tomorrow.year)
-        self.assertEquals(new_appointment.date.hour, tomorrow.hour)
         self.assertEquals(new_appointment.notes, u"Hola me llamo juanito y quiero puro donar sangre")
 
     def test_instanciate_an_appointment_without_donor(self):
@@ -165,23 +163,6 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         response = c.post(url, data=data)
         self.assertTrue(response.context['new_appointment_form'].errors)
         self.assertTrue(response.context['new_appointment_form'].errors['date'])
-
-    def atest_formated_posting(self):
-        """Cuando estoy logeado puedo postear los datos y crearme una cita"""
-        c = Client()
-        c.login(facebook_id=self.user.facebook_id)
-
-        data = {
-        'date':'30/3/2014',
-        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
-        }
-        url = reverse('create_appointment')
-        response = c.post(url, data=data)
-        print response.context['form'].errors
-        appointment = Appointment.objects.get(donor=self.user)
-        self.assertEquals(appointment.date.day, 30)
-        self.assertEquals(appointment.date.month, 3)
-        self.assertEquals(appointment.date.year, 2014)
 
     def test_when_Im_not_logged_I_get_redirect(self):
         '''Cuando no estoy loggeado me pide que me loguinee'''
