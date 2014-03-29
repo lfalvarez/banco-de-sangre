@@ -66,6 +66,19 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         response = c.get(apointment.get_absolute_url())
         self.assertEquals(response.status_code, 404)
 
+    def test_not_logged_accessing_an_appointment(self):
+        '''Un usuario sin login no puede ver una cita'''
+        not_owner = FacebookDonor.objects.create(
+            facebook_id=456,
+            facebook_name=u"no soy el dueño",
+            username="not_owner"
+            )
+        apointment = Appointment.objects.create(donor=self.user)
+        c = Client()
+        #not logged user
+        response = c.get(apointment.get_absolute_url())
+        self.assertEquals(response.status_code, 404)
+
 
 from dona_sangre.forms import AppointmentModelForm
 
@@ -129,4 +142,15 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         
         self.assertTrue(appointment)
         self.assertEquals(appointment.notes, data['notes'])
+
+    def test_when_Im_not_logged_I_get_redirect(self):
+        '''Cuando no estoy loggeado me pide que me loguinee'''
+        c = Client()
+        data = {
+        'date':'2014-03-30',
+        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
+        }
+        url = reverse('create_appointment')
+        response = c.post(url, data=data)
+        self.assertRedirects(response, '/?next=/create_appointment')
 

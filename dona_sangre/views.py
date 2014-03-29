@@ -9,8 +9,6 @@ from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
-#home_url = reverse('home')
-
 class UserAccountView(TemplateView):
     template_name = "sangre/your-profile.html"
 
@@ -27,6 +25,11 @@ class UserAccountView(TemplateView):
 class AppointmentCreateView(CreateView):
     form_class = AppointmentModelForm
     template_name = "sangre/your-profile.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        
+        return super(AppointmentCreateView, self).dispatch(*args, **kwargs)
 
     def get_form_kwargs(self):
         kwargs = super(AppointmentCreateView, self).get_form_kwargs()
