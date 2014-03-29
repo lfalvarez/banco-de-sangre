@@ -9,3 +9,4 @@ django_facebook
 django-extensions
 ipython
 Pillow
+pytz
