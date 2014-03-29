@@ -7,8 +7,15 @@
 
 {% block content %}
 <div class="starter-template">
-	{{ appointment }}
-	<span>Quieres que te avisemos?</span>
-	<p>Aquí va a ir algo que te ayude a crear un aviso de ir a donar sangre y todavía no está listo</p>
+	<dl>
+	  <dt>Cuando?</dt>
+	  <dd>{{ appointment.date }}</dd>
+	  <dt>Notas</dt>
+	  <dd>{{ appointment.notes }}</dd>
+	</dl>
+	<div>
+		<span>Quieres que te avisemos?</span>
+		<p>Aquí va a ir algo que te ayude a crear un aviso de ir a donar sangre y todavía no está listo</p>
+	</div>
 </div>
 {% endblock content %}

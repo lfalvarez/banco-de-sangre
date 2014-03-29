@@ -8,7 +8,7 @@
 {% block content %}
 <div class="starter-template">
 	<h1>Hola {{ user.facebook_name }}!</h1>
-	<p class="lead">Cuando quieres ir a donar</p>
+	<p class="lead">Cuando quieres ir a donar (Aquí hay unas reglas interesantes de los 3 meses y cosas que no conozco muy bien)</p>
 	<form role="form" method="POST" action="{% url 'create_appointment' %}">
 		{% csrf_token %}
 		{% for field in new_appointment_form %}
@@ -19,6 +19,13 @@
     {% endfor %}
 		<input type="submit" value="Submit now" />
 	</form>
-	<p>Aquí va a ir algo que te ayude a crear un aviso de ir a donar sangre y todavía no está listo</p>
+	<div class="appointments">
+		Me he comprometido a donar los días:
+		<ul>
+			{% for appointment in user.appointments.all %}
+			<li>{{ appointment }} <a href="{% url 'appointment_detail' pk=appointment.pk %}"><span class="glyphicon glyphicon-send"></span></a></li>
+			{% endfor %}
+		</ul>
+	</div>
 </div>
 {% endblock content %}

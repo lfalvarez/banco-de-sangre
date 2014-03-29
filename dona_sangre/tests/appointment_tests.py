@@ -4,7 +4,7 @@ from dona_sangre.models import Appointment, FacebookDonor
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 import datetime
-from django.utils.timezone import now
+from django.utils.timezone import now, make_aware, get_default_timezone
 
 tomorrow = now() + datetime.timedelta(days=1)
 
@@ -39,6 +39,14 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(apointment.date.year, tomorrow.year)
         self.assertEquals(apointment.date.hour, tomorrow.hour)
         self.assertEquals(apointment.notes, u"")
+
+    def test_appointment_unicode(self):
+        '''Una cita tiene unicode method'''
+        date = make_aware(datetime.datetime(2007, 12, 5), get_default_timezone())
+        apointment = Appointment.objects.create(donor=self.user, date=date)
+        en_unicode = apointment.__unicode__()
+
+        self.assertIn(u'5/12/2007', en_unicode)
 
     def test_get_absolute_url(self):
         """Una cita tiene su página aparte"""

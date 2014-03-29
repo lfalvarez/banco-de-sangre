@@ -9,6 +9,7 @@ from django.contrib.auth.models import AbstractUser
 import datetime
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now
+from django.utils.translation import ugettext as _
 
 class FacebookDonor(AbstractUser, FacebookModel):
 	pass
@@ -20,4 +21,11 @@ class Appointment(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('appointment_detail', kwargs={'pk':self.pk})
+
+	def __unicode__(self):
+		result =  _(u"%(date)s"%{
+			'date':self.date.date().strftime('%d/%m/%Y')
+			})
+
+		return result
 
