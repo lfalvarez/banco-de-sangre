@@ -7,12 +7,14 @@ import datetime
 
 tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
 
-class AppointmentTestCase(TestCase):
+class AppointmentTestCaseMixin(object):
     def setUp(self):
         self.user = FacebookDonor.objects.create(
             facebook_id=1234,
             facebook_name="Feli"
             )
+
+class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
 
     def test_create_an_appointment(self):
         '''Puedes crear una cita para ir a donar sangre'''
@@ -36,13 +38,7 @@ class AppointmentTestCase(TestCase):
 
 from dona_sangre.forms import AppointmentModelForm
 
-class AppointmentModelFormTestCase(TestCase):
-    def setUp(self):
-        self.user = FacebookDonor.objects.create(
-            facebook_id=1234,
-            facebook_name="Feli"
-            )
-
+class AppointmentModelFormTestCase(AppointmentTestCaseMixin, TestCase):
 
     def test_create_an_appointment_using_form(self):
         """Puedo crear una cita para ir a donar utilizando un formulario"""
@@ -79,4 +75,16 @@ class AppointmentModelFormTestCase(TestCase):
         self.assertIsInstance(response.context['new_appointment_form'], AppointmentModelForm)
         self.assertFalse(hasattr(response.context['new_appointment_form'], 'donor'))
 
+class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
+    def test_post_url_is_accessible(self):
+        """La url para crear una cita existe"""
+        url = reverse('create_appointment')
+        self.assertTrue(url)
+        
+    def atest_when_I_post_as_a_logged_user_it_creates_the_apointment(self):
+        """Cuando estoy logeado puedo postear los datos y crearme una cita"""
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+
+        self.fail()
 
