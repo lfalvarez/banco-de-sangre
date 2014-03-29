@@ -28,6 +28,7 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertTrue(apointment)
         self.assertEquals(apointment.donor, self.user)
         self.assertEquals(apointment.date, tomorrow)
+        self.assertIn(apointment, self.user.appointments.all())
 
     def test_an_appointment_has_default_tomorrow(self):
         '''Una cita tiene por defecto la fecha de mañana'''
