@@ -35,6 +35,7 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(apointment.date.month, tomorrow.month)
         self.assertEquals(apointment.date.year, tomorrow.year)
         self.assertEquals(apointment.date.hour, tomorrow.hour)
+        self.assertEquals(apointment.notes, u"")
 
 from dona_sangre.forms import AppointmentModelForm
 

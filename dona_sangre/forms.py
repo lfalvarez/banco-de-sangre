@@ -1,10 +1,14 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea, DateTimeInput
 from dona_sangre.models import Appointment
 
 class AppointmentModelForm(ModelForm):
     class Meta:
         model = Appointment
         fields = ['date', 'notes']
+        widgets = {
+            'date': DateTimeInput(attrs={'class': 'form-control'}),
+            'notes': Textarea(attrs={'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         if 'donor' in kwargs:

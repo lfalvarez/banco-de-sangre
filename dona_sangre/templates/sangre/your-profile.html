@@ -8,7 +8,17 @@
 {% block content %}
 <div class="starter-template">
 	<h1>Hola {{ user.facebook_name }}!</h1>
-	<p class="lead">Nuestra idea es que te comprometas con un día y hora para donar sangre</p>
+	<p class="lead">Cuando quieres ir a donar</p>
+	<form role="form" method="POST" action="{% url 'create_appointment' %}">
+		{% csrf_token %}
+		{% for field in new_appointment_form %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+		<input type="submit" value="Submit now" />
+	</form>
 	<span>Quieres que te avisemos?</span>
 	<p>Aquí va a ir algo que te ayude a crear un aviso de ir a donar sangre y todavía no está listo</p>
 </div>

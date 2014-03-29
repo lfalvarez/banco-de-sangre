@@ -24,6 +24,7 @@ class UserAccountView(TemplateView):
 
 class AppointmentCreateView(CreateView):
 	form_class = AppointmentModelForm
+	template_name = "sangre/your-profile.html"
 
 	def get_form_kwargs(self):
 		kwargs = super(AppointmentCreateView, self).get_form_kwargs()
