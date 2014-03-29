@@ -12,7 +12,8 @@ class AppointmentTestCaseMixin(object):
     def setUp(self):
         self.user = FacebookDonor.objects.create(
             facebook_id=1234,
-            facebook_name="Feli"
+            facebook_name="Feli",
+            username="feli"
             )
 
 class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
@@ -51,6 +52,19 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(response.context['appointment'], apointment)
         self.assertTemplateUsed(response, 'sangre/appointment.html')
         self.assertTemplateUsed(response, 'base.html')
+
+    def test_not_owner_cannot_access_appointment_detail(self):
+        '''Una persona que no es dueña no puede acceder a la cita'''
+        not_owner = FacebookDonor.objects.create(
+            facebook_id=456,
+            facebook_name=u"no soy el dueño",
+            username="not_owner"
+            )
+        apointment = Appointment.objects.create(donor=self.user)
+        c = Client()
+        c.login(facebook_id=not_owner.facebook_id)
+        response = c.get(apointment.get_absolute_url())
+        self.assertEquals(response.status_code, 404)
 
 
 from dona_sangre.forms import AppointmentModelForm
@@ -109,10 +123,10 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         }
         url = reverse('create_appointment')
         response = c.post(url, data=data)
-        account_url = reverse('account')
-        self.assertRedirects(response, account_url)
-
         appointment = Appointment.objects.get(donor=self.user)
+        self.assertRedirects(response, appointment.get_absolute_url())
+
+        
         self.assertTrue(appointment)
         self.assertEquals(appointment.notes, data['notes'])
 
