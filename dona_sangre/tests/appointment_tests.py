@@ -152,6 +152,37 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         self.assertTrue(appointment)
         self.assertEquals(appointment.notes, data['notes'])
 
+    def test_mistakes_in_the_form(self):
+        '''Cuando cometo errores en el formulario me lo redibuja'''
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+
+        data = {
+        'date':'Esto no es una fecha',
+        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
+        }
+        url = reverse('create_appointment')
+        response = c.post(url, data=data)
+        self.assertTrue(response.context['new_appointment_form'].errors)
+        self.assertTrue(response.context['new_appointment_form'].errors['date'])
+
+    def atest_formated_posting(self):
+        """Cuando estoy logeado puedo postear los datos y crearme una cita"""
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+
+        data = {
+        'date':'30/3/2014',
+        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
+        }
+        url = reverse('create_appointment')
+        response = c.post(url, data=data)
+        print response.context['form'].errors
+        appointment = Appointment.objects.get(donor=self.user)
+        self.assertEquals(appointment.date.day, 30)
+        self.assertEquals(appointment.date.month, 3)
+        self.assertEquals(appointment.date.year, 2014)
+
     def test_when_Im_not_logged_I_get_redirect(self):
         '''Cuando no estoy loggeado me pide que me loguinee'''
         c = Client()

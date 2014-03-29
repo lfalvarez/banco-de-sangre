@@ -88,7 +88,25 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
+USE_L10N = True 
+
+DATETIME_INPUT_FORMATS = (
+    '%Y-%m-%d %H:%M:%S',     # '2006-10-25 14:30:59'
+    '%Y-%m-%d %H:%M:%S.%f',  # '2006-10-25 14:30:59.000200'
+    '%Y-%m-%d %H:%M',        # '2006-10-25 14:30'
+    '%d-%m-%Y', 
+    '%Y-%m-%d',              # '2006-10-25'
+    '%m/%d/%Y %H:%M:%S',     # '10/25/2006 14:30:59'
+    '%m/%d/%Y %H:%M:%S.%f',  # '10/25/2006 14:30:59.000200'
+    '%m/%d/%Y %H:%M',        # '10/25/2006 14:30'
+    '%d/%m/%Y', 
+    '%m/%d/%Y',              # '10/25/2006'
+    '%m/%d/%y %H:%M:%S',     # '10/25/06 14:30:59'
+    '%m/%d/%y %H:%M:%S.%f',  # '10/25/06 14:30:59.000200'
+    '%m/%d/%y %H:%M',        # '10/25/06 14:30'
+    '%m/%d/%y',              # '10/25/06'
+)
 
 TIME_ZONE = 'America/Santiago'
 

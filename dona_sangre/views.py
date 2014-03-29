@@ -36,6 +36,9 @@ class AppointmentCreateView(CreateView):
         kwargs['donor'] = self.request.user
         return kwargs
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(new_appointment_form=form))
+
 class AppointmentDetailView(DetailView):
     model = Appointment
     template_name = 'sangre/appointment.html'
