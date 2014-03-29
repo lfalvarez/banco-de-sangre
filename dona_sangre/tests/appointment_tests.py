@@ -80,11 +80,21 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         """La url para crear una cita existe"""
         url = reverse('create_appointment')
         self.assertTrue(url)
-        
-    def atest_when_I_post_as_a_logged_user_it_creates_the_apointment(self):
+
+    def test_when_I_post_as_a_logged_user_it_creates_the_apointment(self):
         """Cuando estoy logeado puedo postear los datos y crearme una cita"""
         c = Client()
         c.login(facebook_id=self.user.facebook_id)
+        data = {
+        'date':tomorrow,
+        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
+        }
+        url = reverse('create_appointment')
+        response = c.post(url, data=data)
+        account_url = reverse('account')
+        self.assertRedirects(response, account_url)
 
-        self.fail()
+        appointment = Appointment.objects.get(donor=self.user)
+        self.assertTrue(appointment)
+        self.assertEquals(appointment.notes, data['notes'])
 
