@@ -4,8 +4,9 @@ from dona_sangre.models import Appointment, FacebookDonor
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 import datetime
+from django.utils.timezone import now
 
-tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
+tomorrow = now() + datetime.timedelta(days=1)
 
 class AppointmentTestCaseMixin(object):
     def setUp(self):
@@ -101,8 +102,9 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         """Cuando estoy logeado puedo postear los datos y crearme una cita"""
         c = Client()
         c.login(facebook_id=self.user.facebook_id)
+
         data = {
-        'date':tomorrow,
+        'date':'2014-03-30',
         'notes':u"Hola me llamo juanito y quiero puro donar sangre"
         }
         url = reverse('create_appointment')
