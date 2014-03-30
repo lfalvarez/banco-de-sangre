@@ -58,8 +58,9 @@ class Migration(SchemaMigration):
         # Adding model 'Appointment'
         db.create_table(u'dona_sangre_appointment', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('donor', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['dona_sangre.FacebookDonor'])),
-            ('date', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime(2014, 3, 9, 0, 0))),
+            ('donor', self.gf('django.db.models.fields.related.ForeignKey')(related_name='appointments', to=orm['dona_sangre.FacebookDonor'])),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2014, 3, 30, 0, 0))),
+            ('notes', self.gf('django.db.models.fields.TextField')(default=u'')),
         ))
         db.send_create_signal(u'dona_sangre', ['Appointment'])
 
@@ -101,9 +102,10 @@ class Migration(SchemaMigration):
         },
         u'dona_sangre.appointment': {
             'Meta': {'object_name': 'Appointment'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2014, 3, 9, 0, 0)'}),
-            'donor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['dona_sangre.FacebookDonor']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 30, 0, 0)'}),
+            'donor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'appointments'", 'to': u"orm['dona_sangre.FacebookDonor']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'notes': ('django.db.models.fields.TextField', [], {'default': "u''"})
         },
         u'dona_sangre.facebookdonor': {
             'Meta': {'object_name': 'FacebookDonor'},
