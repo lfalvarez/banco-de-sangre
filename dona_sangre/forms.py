@@ -6,7 +6,7 @@ class AppointmentModelForm(ModelForm):
         model = Appointment
         fields = ['date', 'notes']
         widgets = {
-            'date': DateInput(attrs={'class': 'form-control'}),
+            'date': DateInput(attrs={'class': 'form-control datepicker'}),
             'notes': Textarea(attrs={'class': 'form-control'}),
         }
 

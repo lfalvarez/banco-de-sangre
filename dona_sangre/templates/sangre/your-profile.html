@@ -3,6 +3,17 @@
 
 
 {% block extra_head %}
+<link href="{% static 'css/datepicker3.css' %}" rel="stylesheet">
+<script src="{% static 'js/datepicker.js' %}"></script>
+<script>
+$(document).ready(function(){
+	$('.datepicker').datepicker({
+		startDate: '+1',
+		startView: 1,
+		todayHighlight: true
+	})
+});
+</script>
 {% endblock extra_head %}
 
 {% block content %}
