@@ -100,13 +100,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'dona_sangre.appointment': {
-            'Meta': {'object_name': 'Appointment'},
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 30, 0, 0)'}),
-            'donor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'appointments'", 'to': u"orm['dona_sangre.FacebookDonor']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'notes': ('django.db.models.fields.TextField', [], {'default': "u''"})
-        },
         u'dona_sangre.facebookdonor': {
             'Meta': {'object_name': 'FacebookDonor'},
             'about_me': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
@@ -135,6 +128,13 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'}),
             'website_url': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'})
+        },
+        u'dona_sangre.appointment': {
+            'Meta': {'object_name': 'Appointment'},
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2014, 3, 30, 0, 0)'}),
+            'donor': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'appointments'", 'to': u"orm['dona_sangre.FacebookDonor']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'notes': ('django.db.models.fields.TextField', [], {'default': "u''"})
         }
     }
 
