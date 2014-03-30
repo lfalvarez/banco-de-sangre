@@ -37,12 +37,11 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(apointment.date.day, tomorrow.day)
         self.assertEquals(apointment.date.month, tomorrow.month)
         self.assertEquals(apointment.date.year, tomorrow.year)
-        self.assertEquals(apointment.date.hour, tomorrow.hour)
         self.assertEquals(apointment.notes, u"")
 
     def test_appointment_unicode(self):
         '''Una cita tiene unicode method'''
-        date = make_aware(datetime.datetime(2007, 12, 5), get_default_timezone())
+        date = datetime.date(2007, 12, 5)
         apointment = Appointment.objects.create(donor=self.user, date=date)
         en_unicode = apointment.__unicode__()
 
@@ -108,7 +107,6 @@ class AppointmentModelFormTestCase(AppointmentTestCaseMixin, TestCase):
         self.assertEquals(new_appointment.date.day, tomorrow.day)
         self.assertEquals(new_appointment.date.month, tomorrow.month)
         self.assertEquals(new_appointment.date.year, tomorrow.year)
-        self.assertEquals(new_appointment.date.hour, tomorrow.hour)
         self.assertEquals(new_appointment.notes, u"Hola me llamo juanito y quiero puro donar sangre")
 
     def test_instanciate_an_appointment_without_donor(self):
@@ -151,6 +149,20 @@ class NewAppointmentView(AppointmentTestCaseMixin, TestCase):
         
         self.assertTrue(appointment)
         self.assertEquals(appointment.notes, data['notes'])
+
+    def test_mistakes_in_the_form(self):
+        '''Cuando cometo errores en el formulario me lo redibuja'''
+        c = Client()
+        c.login(facebook_id=self.user.facebook_id)
+
+        data = {
+        'date':'Esto no es una fecha',
+        'notes':u"Hola me llamo juanito y quiero puro donar sangre"
+        }
+        url = reverse('create_appointment')
+        response = c.post(url, data=data)
+        self.assertTrue(response.context['new_appointment_form'].errors)
+        self.assertTrue(response.context['new_appointment_form'].errors['date'])
 
     def test_when_Im_not_logged_I_get_redirect(self):
         '''Cuando no estoy loggeado me pide que me loguinee'''

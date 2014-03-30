@@ -3,6 +3,17 @@
 
 
 {% block extra_head %}
+<link href="{% static 'css/datepicker3.css' %}" rel="stylesheet">
+<script src="{% static 'js/datepicker.js' %}"></script>
+<script>
+$(document).ready(function(){
+	$('.datepicker').datepicker({
+		startDate: '+1',
+		startView: 1,
+		todayHighlight: true
+	})
+});
+</script>
 {% endblock extra_head %}
 
 {% block content %}
@@ -17,7 +28,7 @@
             {{ field.label_tag }} {{ field }}
         </div>
     {% endfor %}
-		<input type="submit" value="Submit now" />
+		<input type="submit" class="btn btn-primary btn-lg active" value="Submit now" />
 	</form>
 	<div class="appointments">
 		Me he comprometido a donar los días:

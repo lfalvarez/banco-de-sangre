@@ -16,7 +16,7 @@ class FacebookDonor(AbstractUser, FacebookModel):
 
 class Appointment(models.Model):
 	donor = models.ForeignKey(FacebookDonor, related_name='appointments')
-	date = models.DateTimeField(default=(now() + datetime.timedelta(days=1)))
+	date = models.DateField(default=(now() + datetime.timedelta(days=1)))
 	notes = models.TextField(default=u"")
 
 	def get_absolute_url(self):
@@ -24,7 +24,7 @@ class Appointment(models.Model):
 
 	def __unicode__(self):
 		result =  _(u"%(date)s"%{
-			'date':self.date.date().strftime('%d/%m/%Y')
+			'date':self.date.strftime('%d/%m/%Y')
 			})
 
 		return result
