@@ -41,7 +41,7 @@ class AppointmentTestCase(AppointmentTestCaseMixin, TestCase):
 
     def test_appointment_unicode(self):
         '''Una cita tiene unicode method'''
-        date = make_aware(datetime.datetime(2007, 12, 5), get_default_timezone())
+        date = datetime.date(2007, 12, 5)
         apointment = Appointment.objects.create(donor=self.user, date=date)
         en_unicode = apointment.__unicode__()
 
